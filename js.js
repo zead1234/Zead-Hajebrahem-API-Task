@@ -40,7 +40,6 @@ async function firstItems() {
 firstItems();
 
 async function nextItems() {
-  data=[]
   let newData = [];
   currentPage++;
   await fetch(`https://dummyjson.com/products?page=${currentPage}&limit=10`)
