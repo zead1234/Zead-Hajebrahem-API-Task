@@ -17,6 +17,7 @@ function appendNewItemIntoproduct(value, images, dsicrip) {
   disc.innerText = dsicrip;
   disc.className = "disc";
   const div = document.createElement("div");
+  div.className="card"
   const button = document.createElement("button");
   button.classList.add("order");
   button.innerText = "Order";
@@ -39,6 +40,7 @@ async function firstItems() {
 firstItems();
 
 async function nextItems() {
+  data=[]
   let newData = [];
   currentPage++;
   await fetch(`https://dummyjson.com/products?page=${currentPage}&limit=10`)
@@ -61,3 +63,21 @@ async function prevItems() {
     });
   }
 }
+
+const searchInput = document.querySelector('.search-input');
+
+searchInput.addEventListener('input', () => {
+  const filter = searchInput.value.toLowerCase();
+  const products = document.querySelectorAll('.product-area > div');
+
+  products.forEach(product => {
+    const title = product.querySelector('.title').textContent.toLowerCase();
+    const description = product.querySelector('.disc').textContent.toLowerCase();
+    
+    if (title.includes(filter) || description.includes(filter)) {
+      product.style.display = '';
+    } else {
+      product.style.display = 'none';
+    }
+  });
+});
