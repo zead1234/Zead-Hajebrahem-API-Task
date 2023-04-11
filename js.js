@@ -1,5 +1,33 @@
-const btn = document.querySelector(".input-area button");
+
+
+// ==========================================================================================================
+// ==========================================================================================================
+// ==========================================================================================================
+// ==========================================================================================================
+
+
+const btn = document.querySelector(".input-area .next");
+const btn2 = document.querySelector(".input-area .prev");
 const product = document.querySelector(".product-area");
+
+let data = [];
+let startIndex = 0;
+let endIndex = 9;
+let allProducts = [];
+
+async function fetchProducts() {
+  await fetch('https://dummyjson.com/products')
+    .then(res => res.json())
+    .then(res => data = res.products);
+}
+
+function appendProducts(start, end) {
+  for (let i = start; i <= end; i++) {
+    const item = data[i];
+    appendNewItemIntoproduct(item.title, item.images, item.description);
+    allProducts.push(item); 
+  }
+}
 
 function appendNewItemIntoproduct(value, images, dsicrip) {
   const p = document.createElement("p");
@@ -21,62 +49,63 @@ function appendNewItemIntoproduct(value, images, dsicrip) {
   const button = document.createElement("button");
   button.classList.add("order");
   button.innerText = "Order";
+  button.addEventListener('click',()=>{
+    const conf=confirm("Are you sure you want to place this order?")
+    if(conf){
+      alert("Your package has been shipped.")
+    }
+  } )
   div.appendChild(p);
   div.appendChild(image);
   div.appendChild(disc);
   div.appendChild(button);
   product.appendChild(div);
 }
-let currentPage = 1;
+
 async function firstItems() {
-  let data = [];
-  await fetch(`https://dummyjson.com/products?page=${currentPage}&limit=10`)
-    .then(res => res.json())
-    .then(res => data = res.products);
-  data.forEach((item) => {
-    appendNewItemIntoproduct(item.title, item.images, item.description);
-  });
+  await fetchProducts();
+  appendProducts(startIndex, endIndex);
 }
+
 firstItems();
 
-async function nextItems() {
-  let newData = [];
-  currentPage++;
-  await fetch(`https://dummyjson.com/products?page=${currentPage}&limit=10`)
-    .then(res => res.json())
-    .then(res => newData = res.products);
-  newData.forEach((item) => {
-    if (currentPage >= 5) { currentPage = 1 }
-    appendNewItemIntoproduct(item.title, item.images, item.description);
-  });
-}
-async function prevItems() {
-  if (currentPage > 1) {
-    currentPage--;
-    const data = await fetch(`https://dummyjson.com/products?page=${currentPage}&limit=10`)
-      .then(res => res.json())
-      .then(res => res.products);
-    product.innerHTML = '';
-    data.forEach((item) => {
-      appendNewItemIntoproduct(item.title, item.images, item.description);
-    });
+btn.addEventListener("click", () => {
+  product.innerHTML = "";
+  if (startIndex<20) {
+    startIndex+= 10;
   }
-}
+  if (endIndex<29) {
+    endIndex += 10;
+  }
+  appendProducts(startIndex, endIndex);
+  
+});
+btn2.addEventListener("click", () => {
+  product.innerHTML = "";
+  if (startIndex > 0) {
+    startIndex -= 10;
+  }
+
+  if (endIndex > 9) {
+    endIndex -= 10;
+  }
+  appendProducts(startIndex,endIndex);
+});
+
 
 const searchInput = document.querySelector('.search-input');
 
 searchInput.addEventListener('input', () => {
   const filter = searchInput.value.toLowerCase();
-  const products = document.querySelectorAll('.product-area > div');
 
-  products.forEach(product => {
-    const title = product.querySelector('.title').textContent.toLowerCase();
-    const description = product.querySelector('.disc').textContent.toLowerCase();
+  product.innerHTML = ""; 
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i];
+    const title = item.title.toLowerCase();
+    const description = item.description.toLowerCase();
     
     if (title.includes(filter) || description.includes(filter)) {
-      product.style.display = '';
-    } else {
-      product.style.display = 'none';
+      appendNewItemIntoproduct(item.title, item.images, item.description);
     }
-  });
+  }
 });

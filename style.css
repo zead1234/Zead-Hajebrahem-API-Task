@@ -1,6 +1,10 @@
 body {
     font-family: "Montserrat", sans-serif;
   }
+  button{
+    border-radius: 3px;
+    border: none;
+  }
   .search-input{
     display: block;
     margin: 10px auto;
@@ -31,38 +35,35 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     color: #8b0000; 
     background-color: #fffdd0;
     transition: 0.5s;
       }
       .product-area div:hover{
-        transform: scale(1.1);
+        transform: scale(0.9);
       }
   .product-area div p {
     font-size: 20px;
   }
   .product-area .disc , .product-area .title{
-    height: 10%;
+    margin: 50px 0;
   }
 
 
 
-  .product-area .disc{
-    overflow: hidden;
-    text-overflow: clip;
-  }
   .product-area div .order {
     background-color: #333333;
-    color: white; 
-    border-radius: 3px;
-    border: none;
+    color: white;
+   
     cursor: pointer;
     display: block;
     margin: 10px auto;
     width: 80%;
+    height: 50px;
     transition: 0.6s;
-    
+    font-size: 20px;
+
   }
   .product-area div .order:hover{
     background-color: #696969;
@@ -73,19 +74,19 @@ body {
     width: 100%;
     height: 50%;
   }
-.container button{
-  margin: 10px auto;
-  width: 30%;
-  height: 20px;
-  display:block;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
 
-}
 .prev,.next{
   background-color: #333333;
-transition: 0.6s;
+  color: white;
+  transition: 0.6s;
+margin: 10px auto;
+width: 30%;
+height: 30px;
+display:block;
+color: white;
+border-radius: 5px;
+cursor: pointer;
+
 }
 .prev:hover,.next:hover{
   background-color:#696969 ;
