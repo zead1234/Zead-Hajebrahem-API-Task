@@ -1,11 +1,3 @@
-
-
-// ==========================================================================================================
-// ==========================================================================================================
-// ==========================================================================================================
-// ==========================================================================================================
-
-
 const btn = document.querySelector(".input-area .next");
 const btn2 = document.querySelector(".input-area .prev");
 const product = document.querySelector(".product-area");
@@ -37,10 +29,25 @@ function appendNewItemIntoproduct(value, images, dsicrip) {
   image.src = images[0];
   image.className = "im";
   image.alt = "there is some thing lost";
-  image.addEventListener('click', () => {
-    const imageUrls = images.map(img => `<img src="${img}"/>`).join('');
-    window.open().document.write(imageUrls);
-  });
+ image.addEventListener('click', () => {
+  const gallery = images.map(img => `<img src="${img}" class="gallery-img"/>`).join('');
+  const popup = window.open('', 'image gallery', 'width=600,height=400,location=no');
+  popup.document.body.innerHTML = gallery;
+  const styles = `
+    <style>
+      .gallery-img {
+        display: block;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+    </style>
+  `;
+  popup.document.head.innerHTML = styles;
+});
+
+
   const disc = document.createElement("p");
   disc.innerText = dsicrip;
   disc.className = "disc";
