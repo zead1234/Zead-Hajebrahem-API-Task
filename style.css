@@ -4,6 +4,7 @@ body {
   button{
     border-radius: 3px;
     border: none;
+    transition: 0.5s;
   }
   .search-input{
     display: block;
@@ -26,7 +27,7 @@ body {
  
 
   
-  .product-area div {
+  .product-area .card {
     border: 1px solid white;
     padding: 5px;
     width: 30%;
@@ -40,19 +41,16 @@ body {
     background-color: #fffdd0;
     transition: 0.5s;
       }
-      .product-area div:hover{
+      .product-area .card:hover{
         transform: scale(0.9);
       }
-  .product-area div p {
+  .product-area .card p {
     font-size: 20px;
   }
-  .product-area .disc , .product-area .title{
-    margin: 50px 0;
-  }
 
 
 
-  .product-area div .order {
+  .product-area .card .order {
     background-color: #333333;
     color: white;
    
@@ -60,12 +58,13 @@ body {
     display: block;
     margin: 10px auto;
     width: 80%;
-    height: 50px;
+    height: 40px;
     transition: 0.6s;
     font-size: 20px;
+    
 
   }
-  .product-area div .order:hover{
+  .product-area .card .order:hover{
     background-color: #696969;
     width: 90%;
   }
@@ -92,10 +91,44 @@ cursor: pointer;
   background-color:#696969 ;
   width: 40%;
 }
-  
+.gallery-img{
+  border-radius: 4px;
+  border-radius: 21px;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  height: 79%;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-wrap: wrap;
+  background-color: #fffdd0;
+  overflow-y: scroll;
+}
+.pop{
+  width: 40%;
+}
+.exit{ 
+  background-color: #333333;
+  color: white;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto;
+  width: 80%;
+  height: 50px;
+  transition: 0.6s;
+  font-size: 20px;
+}
+.exit:hover{
+  background-color: #696969;
+  width: 90%;
+}
 
   @media (max-width:1000px) {
-    .product-area div {
+    .product-area .card {
       width: 45%;
     }
 
@@ -105,7 +138,7 @@ cursor: pointer;
 
   @media (max-width:787px) {
     
-    .product-area div {
+    .product-area .card {
     width:80%;}
     .product-area .disc{
       height: 20%;

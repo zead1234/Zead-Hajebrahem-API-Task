@@ -30,21 +30,21 @@ function appendNewItemIntoproduct(value, images, dsicrip) {
   image.className = "im";
   image.alt = "there is some thing lost";
  image.addEventListener('click', () => {
-  const gallery = images.map(img => `<img src="${img}" class="gallery-img"/>`).join('');
-  const popup = window.open('', 'image gallery', 'width=600,height=400,location=no');
-  popup.document.body.innerHTML = gallery;
-  const styles = `
-    <style>
-      .gallery-img {
-        display: block;
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 10px;
-        box-sizing: border-box;
-      }
-    </style>
-  `;
-  popup.document.head.innerHTML = styles;
+  const gallery = images.map(img => `<img class="pop" src="${img}" class="gallery-img"/>`).join('');
+  const popup = document.createElement("div");
+  popup.classList="gallery-img";
+  popup.innerHTML=gallery;
+  const exit =document.createElement("button");
+  exit.classList="exit";
+  exit.innerText="Exit";
+  exit.addEventListener("click",()=>{
+    exit.parentElement.remove();
+  })
+
+  popup.appendChild(exit);
+
+  product.appendChild(popup);
+ 
 });
 
 
@@ -80,10 +80,10 @@ btn.addEventListener("click", () => {
   product.innerHTML = "";
   if (startIndex<20) {
     startIndex+= 10;
-  }
+  }else{startIndex=0;}
   if (endIndex<29) {
     endIndex += 10;
-  }
+  }else{endIndex=9;}
   appendProducts(startIndex, endIndex);
   
 });
@@ -91,10 +91,14 @@ btn2.addEventListener("click", () => {
   product.innerHTML = "";
   if (startIndex > 0) {
     startIndex -= 10;
+  }else{
+    startIndex=20;
   }
 
   if (endIndex > 9) {
     endIndex -= 10;
+  }else{
+    endIndex=29;
   }
   appendProducts(startIndex,endIndex);
 });
@@ -104,12 +108,20 @@ const searchInput = document.querySelector('.search-input');
 
 searchInput.addEventListener('input', () => {
   const filter = searchInput.value.toLowerCase();
-
+if(searchInput.value !==""){
+  btn.style.display="none";
+  btn2.style.display="none";
+}
+if (searchInput.value === "") {
+  btn.style.display="block";
+  btn2.style.display="block";
+}
   product.innerHTML = ""; 
   for (let i = 0; i < data.length; i++) {
     const item = data[i];
     const title = item.title.toLowerCase();
     const description = item.description.toLowerCase();
+     
     
     if (title.includes(filter) || description.includes(filter)) {
       appendNewItemIntoproduct(item.title, item.images, item.description);
