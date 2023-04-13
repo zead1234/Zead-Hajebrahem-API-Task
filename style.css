@@ -6,6 +6,9 @@ body {
     border: none;
     transition: 0.5s;
   }
+  .container{
+    background-color: #f5deb3;
+  }
   .search-input{
     display: block;
     margin: 10px auto;
@@ -16,6 +19,7 @@ body {
     background-color:#f5deb3;
     color: #8b0000; 
     height: 30px;
+    text-align: center;
   }
   .product-area {
     background-color:#f5deb3;
@@ -97,7 +101,7 @@ cursor: pointer;
   display: flex;
   flex-direction: row;
   width: 50%;
-  height: 79%;
+  height: 80%;
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -118,7 +122,7 @@ cursor: pointer;
   display: block;
   margin: 10px auto;
   width: 80%;
-  height: 50px;
+  height: 20%;
   transition: 0.6s;
   font-size: 20px;
 }

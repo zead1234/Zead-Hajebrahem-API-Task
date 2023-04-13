@@ -72,6 +72,7 @@ function appendNewItemIntoproduct(value, images, dsicrip) {
 async function firstItems() {
   await fetchProducts();
   appendProducts(startIndex, endIndex);
+  console.log("fffffffffffff");
 }
 
 firstItems();
@@ -115,6 +116,7 @@ if(searchInput.value !==""){
 if (searchInput.value === "") {
   btn.style.display="block";
   btn2.style.display="block";
+   
 }
   product.innerHTML = ""; 
   for (let i = 0; i < data.length; i++) {
