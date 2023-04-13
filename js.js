@@ -72,7 +72,6 @@ function appendNewItemIntoproduct(value, images, dsicrip) {
 async function firstItems() {
   await fetchProducts();
   appendProducts(startIndex, endIndex);
-  console.log("fffffffffffff");
 }
 
 firstItems();
