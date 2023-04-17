@@ -179,14 +179,18 @@ if (searchInput.value === "") {
      
     
     if (title.includes(filter) || description.includes(filter)) {
-      appendNewItemIntoproduct(item.title, item.images, item.description);
+      appendNewItemIntoproduct(item.title, item.images, item.description,item.price);
     }
   }
 });
 showCart.addEventListener("click", ()=>{
   if (cart.style.display === "flex") {
     cart.style.display = "none";
+    showCart.style.marginLeft = '';
+
   } else {
     cart.style.display = "flex";
+showCart.style.marginLeft = '0';
+    
   }
 });
