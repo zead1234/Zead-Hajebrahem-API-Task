@@ -1,6 +1,17 @@
 const btn = document.querySelector(".input-area .next");
 const btn2 = document.querySelector(".input-area .prev");
 const product = document.querySelector(".product-area");
+const container = document.querySelector(".container");
+const showCart =document.querySelector(".show-cart");
+const cart = document.createElement("div");
+
+let total =document.createElement("p");
+total.innerText="Total : "
+
+  cart.classList="cart";
+  container.appendChild(cart);
+  cart.appendChild(total);
+
 
 let data = [];
 let startIndex = 0;
@@ -16,12 +27,20 @@ async function fetchProducts() {
 function appendProducts(start, end) {
   for (let i = start; i <= end; i++) {
     const item = data[i];
-    appendNewItemIntoproduct(item.title, item.images, item.description);
+    appendNewItemIntoproduct(item.title, item.images, item.description,item.price);
     allProducts.push(item); 
+
   }
 }
 
-function appendNewItemIntoproduct(value, images, dsicrip) {
+function appendNewItemIntoproduct(value, images, dsicrip,price) {
+  const pr=document.createElement("span");
+  const dollar = document.createElement("span");
+  dollar.innerText="$"
+  pr.innerText=price;
+  pr.appendChild(dollar);
+  pr.className="price";
+
   const p = document.createElement("p");
   p.innerText = value;
   p.classList = "title";
@@ -39,6 +58,7 @@ function appendNewItemIntoproduct(value, images, dsicrip) {
   exit.innerText="Exit";
   exit.addEventListener("click",()=>{
     exit.parentElement.remove();
+
   })
 
   popup.appendChild(exit);
@@ -56,12 +76,30 @@ function appendNewItemIntoproduct(value, images, dsicrip) {
   const button = document.createElement("button");
   button.classList.add("order");
   button.innerText = "Order";
+  const cartItem =document.createElement("div");
+cartItem.className="cart-item";
+  const cartBtn=document.createElement("button");
+  cartBtn.innerText="Delete"
+  cartBtn.addEventListener("click",()=>{
+    cartBtn.parentElement.remove();
+
+    refreshTotal();
+  
+
+
+  })
+
   button.addEventListener('click',()=>{
-    const conf=confirm("Are you sure you want to place this order?")
-    if(conf){
-      alert("Your package has been shipped.")
-    }
-  } )
+  cartItem.appendChild(p);
+  cartItem.appendChild(pr);
+  cartItem.appendChild(cartBtn);
+
+  cart.appendChild(cartItem);
+  refreshTotal();
+  if(cart.lastChild){
+    cart.insertBefore(total,total.lastChild.nextSibling)}
+});
+
   div.appendChild(p);
   div.appendChild(image);
   div.appendChild(disc);
@@ -76,6 +114,21 @@ async function firstItems() {
 
 firstItems();
 
+
+
+function refreshTotal(){
+  
+  const decPrices=document.querySelectorAll(".price");
+  let itemsPriceTotal = 0;
+   for (let index = 0; index < decPrices.length; index++) {
+
+  const sum = parseInt(decPrices[index].innerText);
+  itemsPriceTotal += sum;
+}
+
+console.log(itemsPriceTotal);
+total.innerText ="Total = "+itemsPriceTotal+" $";
+}
 btn.addEventListener("click", () => {
   product.innerHTML = "";
   if (startIndex<20) {
@@ -117,6 +170,7 @@ if (searchInput.value === "") {
   btn2.style.display="block";
    
 }
+
   product.innerHTML = ""; 
   for (let i = 0; i < data.length; i++) {
     const item = data[i];
@@ -127,5 +181,12 @@ if (searchInput.value === "") {
     if (title.includes(filter) || description.includes(filter)) {
       appendNewItemIntoproduct(item.title, item.images, item.description);
     }
+  }
+});
+showCart.addEventListener("click", ()=>{
+  if (cart.style.display === "flex") {
+    cart.style.display = "none";
+  } else {
+    cart.style.display = "flex";
   }
 });
