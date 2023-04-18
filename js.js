@@ -186,11 +186,19 @@ if (searchInput.value === "") {
 showCart.addEventListener("click", ()=>{
   if (cart.style.display === "flex") {
     cart.style.display = "none";
-    showCart.style.marginLeft = '';
+    const bt =document.querySelectorAll(".input-area button");
 
+    bt.forEach(item => {
+      item.style.marginLeft='';
+    });
   } else {
     cart.style.display = "flex";
-showCart.style.marginLeft = '0';
+    const bt =document.querySelectorAll(".input-area button");
+
+    bt.forEach(item => {
+      item.style.marginLeft='0';
+    });
+// showCart.style.marginLeft = '0';
     
   }
 });
